@@ -4,6 +4,15 @@ var bodyParser = require('body-parser');
 var app = express();
 app.use(bodyParser.json());
 
+function handlePR_Event(reqBody) {
+    //there are three types of events.
+    //1. pull request.
+    //2. pull request review comment.
+    //3. pull request review.
+    
+
+}
+
 app.post('/payload', function(request, response) {
     console.log('RESPONSE\n\n');
     console.log(response);
