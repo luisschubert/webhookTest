@@ -9,20 +9,27 @@ function handlePR_Event(reqBody) {
     //1. pull request.
     //2. pull request review comment.
     //3. pull request review.
-    
+    console.log("HANDLING PR EVENT\n");
+    console.log(reqBody.pull_request);
 
 }
 
+function handlePR_Comment(reqBody) {
+    console.log("HANDLING PR COMMENT\n")
+    console.log(reqBody.issues.pull_request);
+}
+
 app.post('/payload', function(request, response) {
-    console.log('RESPONSE\n\n');
-    console.log(response);
-    // var responseO = JSON.parse(response);
-    // console.log(responseO);
-    // var requestO = JSON.parse(request);
-    console.log('REQUEST\n\n');
-    console.log(request);
-    console.log('REQUEST BODY\n\n');
+    console.log('REQUEST BODY\n');
     console.log(request.body);
+    if (request.body.hasOwnProperty('pull_request')) {
+        handlePR_Event(request.body);
+    }
+    else if (request.body.hasOwnProperty('issues')) {
+        if(request.body.issues.hasOwnProperty('pull_request')) {
+            handlePR_Comment(request.body);
+        }
+    }
     response.status(200);
     response.set('Content-type', 'application/json');
     response.send({"test":"TRUE"})
