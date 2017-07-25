@@ -14,6 +14,9 @@ app.post('/payload', function(request, response) {
     console.log(request);
     console.log('REQUEST BODY\n\n');
     console.log(request.body);
+    response.status(200);
+    response.set('Content-type', 'application/json');
+    response.send({"test":"TRUE"})
     //console.log(body);
 });
 
