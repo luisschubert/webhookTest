@@ -4,6 +4,10 @@ var bodyParser = require('body-parser');
 var app = express();
 app.use(bodyParser.json());
 
+function newPR_authorChecklist(reqbody) {
+    
+}
+
 function handlePR_Event(reqBody) {
     //there are three types of events.
     //1. pull request.
