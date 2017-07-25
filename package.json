@@ -1,0 +1,19 @@
+{
+  "name": "webhookTest",
+  "version": "0.0.1",
+  "description": "testing github webhooks",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.13.1"
+  },
+  "author": "Luis Schubert",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/luisschubert/webhookTest.git"
+  }
+}
