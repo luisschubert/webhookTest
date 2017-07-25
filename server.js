@@ -18,6 +18,7 @@ function newPR_hasAuthorChecklist(prObj) {
 
 function addLabel_needsAuthorChecklist(prObj) {
     // /repos/:owner/:repo/issues/:number/labels
+    //just an extra comment to test
     var labels_url = prObj.issue_url + "/labels";
     var options = {
         url: labels_url,
