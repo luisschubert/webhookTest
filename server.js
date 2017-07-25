@@ -33,6 +33,9 @@ function addLabel_needsAuthorChecklist(prObj) {
         if (error){
             console.log("Error: "+ error);
         }
+        console.log(response.statusCode);
+        console.log("FULL RESPONSE");
+        console.log(response);
         if (response.statusCode === 200) {
             console.log(JSON.parse(response.body));
         }
