@@ -23,7 +23,8 @@ function addLabel_needsAuthorChecklist(prObj) {
     var options = {
         url: labels_url,
         headers: {
-            'User-Agent': 'request'
+            'User-Agent': 'request',
+            'token': '6c4c4efd2868ac837eafe110f2f18c0bdd461ddd'
         },
         data: [
             "Needs: Author Checklist"
