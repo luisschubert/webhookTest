@@ -1,12 +1,45 @@
-var express = require('express');
 var request = require('request');
 
-var port = 4567;
-var bodyParser = require('body-parser');
-var app = express();
-app.use(bodyParser.json());
+function Bot() {
+    // app.post('/payload', function(request, response) {
+    //     console.log('REQUEST BODY\n');
+    //     console.log(request.body);
+    //     if (request.body.hasOwnProperty('pull_request')) {
+    //         handlePR_Event(request.body);
+    //     }
+    //     else if (request.body.hasOwnProperty('issues')) {
+    //         if(request.body.issues.hasOwnProperty('pull_request')) {
+    //             handlePR_Comment(request.body);
+    //         }
+    //     }
+    //     response.status(200);
+    //     response.set('Content-type', 'application/json');
+    //     response.send({"test":"TRUE"})
+    //     //console.log(body);
+    // });
 
-function newPR_hasAuthorChecklist(prObj) {
+}
+
+Bot.prototype.payloadHandler = function (request, response) {
+    console.log('REQUEST BODY\n');
+    console.log(request.body);
+    if (request.body.hasOwnProperty('pull_request')) {
+        this.handlePR_Event(request.body).bind(this);
+    }
+    else if (request.body.hasOwnProperty('issues')) {
+        if(request.body.issues.hasOwnProperty('pull_request')) {
+            this.handlePR_Comment(request.body).bind(this);
+        }
+    }
+    response.status(200);
+    response.set('Content-type', 'application/json');
+    response.send({"test":"TRUE"})
+    //console.log(body);
+}
+
+
+
+Bot.prototype.newPR_hasAuthorChecklist = function (prObj) {
     if (
         prObj.body.includes("Changes address original issue?") ||
         prObj.body.includes("Unit tests included and/or updated with changes?") ||
@@ -16,7 +49,7 @@ function newPR_hasAuthorChecklist(prObj) {
     else return false;
 }
 
-function addLabel_needsAuthorChecklist(prObj) {
+Bot.prototype.addLabel_needsAuthorChecklist = function (prObj) {
     // /repos/:owner/:repo/issues/:number/labels
     //just an extra comment to test
     var labels_url = prObj.issue_url + "/labels";
@@ -44,7 +77,7 @@ function addLabel_needsAuthorChecklist(prObj) {
 }
 
 
-function handlePR_Event(reqBody) {
+Bot.prototype.handlePR_Event = function (reqBody) {
     //there are three types of events.
     //1. pull request.
     //2. pull request review comment.
@@ -53,35 +86,19 @@ function handlePR_Event(reqBody) {
     console.log(reqBody.pull_request);
     if (reqBody.action === "opened"){
         console.log("NEW PR OPENED");
-        var hasAuthorChecklist = newPR_hasAuthorChecklist(reqBody.pull_request);
+        var hasAuthorChecklist = this.newPR_hasAuthorChecklist(reqBody.pull_request);
         console.log("HAS AUTHOR CHECKLIST: " + hasAuthorChecklist);
-        if(!hasAuthorChecklist) addLabel_needsAuthorChecklist(reqBody.pull_request);
+        if(!hasAuthorChecklist) this.addLabel_needsAuthorChecklist(reqBody.pull_request);
     }
 
 }
 
-function handlePR_Comment(reqBody) {
+Bot.prototype.handlePR_Comment = function (reqBody) {
     console.log("HANDLING PR COMMENT\n")
     console.log(reqBody.issues.pull_request);
 }
 
-app.post('/payload', function(request, response) {
-    console.log('REQUEST BODY\n');
-    console.log(request.body);
-    if (request.body.hasOwnProperty('pull_request')) {
-        handlePR_Event(request.body);
-    }
-    else if (request.body.hasOwnProperty('issues')) {
-        if(request.body.issues.hasOwnProperty('pull_request')) {
-            handlePR_Comment(request.body);
-        }
-    }
-    response.status(200);
-    response.set('Content-type', 'application/json');
-    response.send({"test":"TRUE"})
-    //console.log(body);
-});
 
-app.listen(port, function(){
-    console.log("ya bish is running on 4567");
-});
+
+
+module.exports = Bot;

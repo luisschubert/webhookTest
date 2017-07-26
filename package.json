@@ -2,9 +2,10 @@
   "name": "webhookTest",
   "version": "0.0.1",
   "description": "testing github webhooks",
-  "main": "server.js",
+  "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jasmine",
+    "start": "node main.js"
   },
   "dependencies": {
     "body-parser": "^1.17.2",
@@ -16,5 +17,8 @@
   "repository": {
     "type": "git",
     "url": "git://github.com/luisschubert/webhookTest.git"
+  },
+  "devDependencies": {
+    "jasmine": "^2.6.0"
   }
 }
