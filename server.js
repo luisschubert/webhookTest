@@ -24,7 +24,7 @@ function addLabel_needsAuthorChecklist(prObj) {
         url: labels_url,
         headers: {
             'User-Agent': 'request',
-            'token': '6c4c4efd2868ac837eafe110f2f18c0bdd461ddd'
+            'token': 'insert token here!'
         },
         data: [
             "Needs: Author Checklist"
