@@ -57,7 +57,7 @@ Bot.prototype.addLabel_needsAuthorChecklist = function (prObj) {
         url: labels_url,
         headers: {
             'User-Agent': 'request',
-            'token': 'insert token here!'
+            'token': '3636fc99f39c56e64d8ba5fb7ac80949568bf7f6'
         },
         data: [
             "Needs: Author Checklist"
